@@ -1,26 +1,52 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* --- Baitna vibe: creamy sunrise + subtle motion --- */
+@keyframes floatSlow {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(20px, -18px, 0) scale(1.05); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-18px, 12px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.baitna-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  background: radial-gradient(1200px 700px at 20% 10%, rgba(255, 214, 170, 0.22), transparent 60%),
+              radial-gradient(900px 600px at 75% 15%, rgba(255, 182, 193, 0.14), transparent 55%),
+              radial-gradient(1000px 700px at 55% 65%, rgba(255, 230, 200, 0.12), transparent 60%),
+              linear-gradient(to bottom, #07080a, #050607 45%, #040405);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.baitna-blob {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 221, 190, 0.95), rgba(255, 221, 190, 0) 55%);
+  animation: floatSlow 10s ease-in-out infinite;
+}
+
+.baitna-blob.two {
+  width: 460px;
+  height: 460px;
+  opacity: 0.45;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 200, 150, 0.85), rgba(255, 200, 150, 0) 55%);
+  animation: drift 12s ease-in-out infinite;
+}
+
+.baitna-noise {
+  position: absolute;
+  inset: 0;
+  z-index: -9;
+  opacity: 0.06;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
 }

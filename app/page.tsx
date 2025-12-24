@@ -2,7 +2,13 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen text-white bg-gradient-to-b from-black via-zinc-950 to-black">
+    <main className="relative min-h-screen text-white">
+      <div className="baitna-bg">
+        <div className="baitna-blob" style={{ left: "-120px", top: "-140px" }} />
+        <div className="baitna-blob two" style={{ right: "-140px", top: "40px" }} />
+        <div className="baitna-noise" />
+      </div>
+
       <header className="border-b border-white/10 bg-black/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           <div className="leading-tight">
