@@ -265,6 +265,99 @@ a{ color:inherit; text-decoration:none; }
 }
 .small{ color: var(--muted2); font-size: 12px; }
 
+/* Gallery */
+.galleryGrid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+}
+
+.gCard{
+  position: relative;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  overflow:hidden;
+  min-height: 220px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  transition: transform .22s ease, background .22s ease, border-color .22s ease;
+}
+
+.gCard:hover{
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.18);
+}
+
+.gBig{ grid-column: 1 / span 7; grid-row: 1 / span 2; min-height: 460px; }
+.gWide{ grid-column: 8 / span 5; min-height: 220px; }
+.galleryGrid .gCard:nth-child(2){ grid-column: 8 / span 5; }
+.galleryGrid .gCard:nth-child(3){ grid-column: 8 / span 3; }
+.galleryGrid .gCard:nth-child(4){ grid-column: 11 / span 2; }
+
+.gImg{
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform .35s ease;
+}
+.gCard:hover .gImg{
+  transform: scale(1.06);
+}
+
+/* Soft overlay to keep vibe consistent */
+.gCard::after,
+.stripItem::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(600px 300px at 30% 15%, rgba(255,178,74,.16), transparent 55%),
+              radial-gradient(500px 350px at 70% 70%, rgba(127,211,255,.12), transparent 60%),
+              linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.35));
+  pointer-events:none;
+}
+
+/* Scroll strip (carousel-like without JS) */
+.galleryStrip{
+  margin-top: 16px;
+  display:flex;
+  gap: 12px;
+  overflow-x:auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.galleryStrip::-webkit-scrollbar{ height: 8px; }
+.galleryStrip::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.12);
+  border-radius: 999px;
+}
+
+.stripItem{
+  position: relative;
+  flex: 0 0 auto;
+  width: 220px;
+  height: 150px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  overflow:hidden;
+  scroll-snap-align: start;
+  transition: transform .22s ease, border-color .22s ease;
+}
+.stripItem:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.18);
+}
+
+@media (max-width: 980px){
+  .gBig{ grid-column: 1 / span 12; min-height: 360px; }
+  .galleryGrid .gCard:nth-child(2){ grid-column: 1 / span 12; }
+  .galleryGrid .gCard:nth-child(3){ grid-column: 1 / span 6; }
+  .galleryGrid .gCard:nth-child(4){ grid-column: 7 / span 6; }
+  .gWide{ grid-column: 1 / span 12; }
+}
+
+
 @media (max-width: 980px){
   .heroGrid{ grid-template-columns: 1fr; }
   .grid2{ grid-template-columns: 1fr; }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import HomeClient from "./components/HomeClient";
+import Gallery from "./components/Gallery";
 
 const CAFE = {
   hours: "Daily • 4:00 PM – 2:00 AM",
@@ -13,16 +14,25 @@ const CAFE = {
 export default function Home() {
   return (
     <>
+      {/* Ambient background */}
       <div className="bg">
         <div className="blob blob1" />
         <div className="blob blob2" />
         <div className="grain" />
       </div>
 
+      {/* Navbar */}
       <header className="nav">
         <div className="navInner">
           <Link className="brand" href="/">
-            <Image src="/logo.png" alt="Baitna Cafe Logo" width={44} height={44} className="brandLogo" priority />
+            <Image
+              src="/logo.png"
+              alt="Baitna Cafe Logo"
+              width={44}
+              height={44}
+              className="brandLogo"
+              priority
+            />
             <div className="brandText">
               <span className="brandTitle">Baitna Cafe</span>
               <span className="brandSub">بيتنا كافيه</span>
@@ -32,15 +42,23 @@ export default function Home() {
           <nav className="links">
             <a href="#about">About</a>
             <a href="#explore">Explore</a>
+            <a href="#gallery">Gallery</a>
             <a href="#visit">Visit</a>
-            <Link className="pill" href="/menu">Menu</Link>
-            <Link className="pill" href="/merch">Merch</Link>
-            <Link className="pill" href="/login">Login</Link>
+            <Link className="pill" href="/menu">
+              Menu
+            </Link>
+            <Link className="pill" href="/merch">
+              Merch
+            </Link>
+            <Link className="pill" href="/login">
+              Login
+            </Link>
           </nav>
         </div>
       </header>
 
       <main>
+        {/* Hero */}
         <section className="hero">
           <div className="container heroGrid">
             <div>
@@ -55,13 +73,20 @@ export default function Home() {
               </h1>
 
               <p className="subhead">
-                Chill, creamy, sunrise vibes. Enjoy specialty coffee, cozy seating, and a calm atmosphere you’ll want to return to.
+                Chill, creamy, sunrise vibes. Enjoy specialty coffee, cozy seating, and a calm
+                atmosphere you’ll want to return to.
               </p>
 
               <div className="ctaRow">
-                <Link className="btn primary" href="/menu">View Menu →</Link>
-                <a className="btn secondary" href="#visit">Find Us</a>
-                <Link className="btn tertiary" href="/merch">Shop Merch</Link>
+                <Link className="btn primary" href="/menu">
+                  View Menu →
+                </Link>
+                <a className="btn secondary" href="#visit">
+                  Find Us
+                </a>
+                <Link className="btn tertiary" href="/merch">
+                  Shop Merch
+                </Link>
               </div>
             </div>
 
@@ -70,7 +95,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* keep your other sections as-is */}
+        {/* About */}
         <section className="section" id="about">
           <div className="container">
             <div className="sectionHead">
@@ -82,7 +107,10 @@ export default function Home() {
               <div className="feature">
                 <div className="icon">☕</div>
                 <h3>Warm, relaxed, local</h3>
-                <p>A cozy rooftop space in Sharjah built for comfort, calm conversations, and good coffee.</p>
+                <p>
+                  A cozy rooftop space in Sharjah built for comfort, calm conversations, and
+                  good coffee.
+                </p>
               </div>
               <div className="feature">
                 <div className="icon">🌙</div>
@@ -92,12 +120,16 @@ export default function Home() {
               <div className="feature">
                 <div className="icon">🛍️</div>
                 <h3>Merch shop</h3>
-                <p>Let fans take the brand home — mugs, hoodies, and more, directly from the website.</p>
+                <p>
+                  Let fans take the brand home — mugs, hoodies, and more, directly from the
+                  website.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
+        {/* Explore */}
         <section className="section" id="explore">
           <div className="container">
             <div className="sectionHead">
@@ -125,6 +157,10 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Gallery (placeholders you can replace later in /public/gallery/) */}
+        <Gallery />
+
+        {/* Visit */}
         <section className="section" id="visit">
           <div className="container">
             <div className="sectionHead">
@@ -140,7 +176,9 @@ export default function Home() {
                 </div>
                 <div className="row">
                   <div className="label">Phone</div>
-                  <a className="value" href={`tel:${CAFE.phoneTel}`}>{CAFE.phoneDisplay}</a>
+                  <a className="value" href={`tel:${CAFE.phoneTel}`}>
+                    {CAFE.phoneDisplay}
+                  </a>
                 </div>
                 <div className="row">
                   <div className="label">Location</div>
@@ -151,7 +189,7 @@ export default function Home() {
                   <a className="btn primary full" href={CAFE.mapsUrl} target="_blank" rel="noreferrer">
                     Open in Maps ↗
                   </a>
-                  {/* no onClick here (server component) */}
+                  {/* No onClick here (server component) */}
                   <div className="btn secondary full" style={{ opacity: 0.6 }}>
                     Copy Address (from card above)
                   </div>
@@ -161,6 +199,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Footer */}
         <footer className="footer">
           <div className="container footerInner">
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
