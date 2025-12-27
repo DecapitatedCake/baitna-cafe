@@ -1,21 +1,21 @@
 /* ======================================================
-   ROOT VARIABLES (Cafe / Rooftop Vibe)
+   ROOT VARIABLES — Baitna Cafe Theme
 ====================================================== */
 :root{
   --bg0:#07060a;
   --bg1:#0c0a10;
 
-  --text: rgba(255,255,255,.92);
+  --text: rgba(255,255,255,.94);
   --muted: rgba(255,255,255,.72);
-  --muted2: rgba(255,255,255,.58);
+  --muted2: rgba(255,255,255,.56);
 
   --border: rgba(255,255,255,.14);
-  --card: rgba(255,255,255,.05);
+  --card: rgba(18,14,24,.52);
 
   --shadow: 0 20px 80px rgba(0,0,0,.55);
   --radius: 22px;
 
-  /* Sunrise / Cafe accents */
+  /* Cafe / sunset accents */
   --a1:#ffb24a;
   --a2:#ff6b7a;
   --a3:#7fd3ff;
@@ -23,7 +23,7 @@
 }
 
 /* ======================================================
-   BASE
+   BASE RESET
 ====================================================== */
 *{ box-sizing:border-box; }
 
@@ -39,17 +39,34 @@ body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
+  background:#07060a; /* solid base prevents seams */
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* ONE continuous fixed background (no break lines) */
+body::before{
+  content:"";
+  position: fixed;
+  inset:0;
+  z-index:-3;
   background:
     radial-gradient(1200px 900px at 20% 10%, rgba(255,178,74,.14), transparent 55%),
     radial-gradient(1000px 800px at 80% 0%, rgba(127,211,255,.12), transparent 55%),
     radial-gradient(900px 900px at 70% 70%, rgba(255,107,122,.10), transparent 55%),
     linear-gradient(180deg, var(--bg0), var(--bg1));
-  overflow-x:hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 a{
   color:inherit;
   text-decoration:none;
+}
+
+main{
+  position: relative;
+  z-index:0;
 }
 
 .container{
@@ -58,7 +75,7 @@ a{
 }
 
 /* ======================================================
-   AMBIENT BACKGROUND
+   AMBIENT FLOATING BLOBS
 ====================================================== */
 .bg{
   position: fixed;
@@ -92,14 +109,6 @@ a{
   50%{ transform:translate(-35px,-25px) scale(1.05); }
 }
 
-.grain{
-  position:absolute;
-  inset:-20%;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-  opacity:.25;
-  mix-blend-mode: overlay;
-}
-
 /* ======================================================
    NAVBAR
 ====================================================== */
@@ -107,17 +116,15 @@ a{
   position: sticky;
   top:0;
   z-index:50;
-  backdrop-filter: blur(14px);
-  background: linear-gradient(180deg, rgba(10,8,14,.75), rgba(10,8,14,.35));
+  backdrop-filter: blur(16px);
+  background: linear-gradient(180deg, rgba(10,8,14,.78), rgba(10,8,14,.35));
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .navInner{
-  width:min(1120px, calc(100% - 40px));
-  margin:0 auto;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   padding:14px 0;
   gap:16px;
 }
@@ -142,9 +149,7 @@ a{
   flex-direction:column;
   line-height:1.1;
 }
-.brandTitle{
-  font-weight:900;
-}
+.brandTitle{ font-weight:900; }
 .brandSub{
   font-size:12px;
   color: var(--muted2);
@@ -152,22 +157,20 @@ a{
 
 .links{
   display:flex;
-  align-items:center;
   gap:10px;
+  align-items:center;
 }
-
 .links a{
-  padding:10px 10px;
+  padding:10px 12px;
   border-radius:12px;
   font-size:14px;
   color: var(--muted);
   transition:.2s ease;
 }
 .links a:hover{
-  color: var(--text);
   background: rgba(255,255,255,.06);
+  color: var(--text);
 }
-
 .pill{
   border:1px solid var(--border);
   background: rgba(255,255,255,.06);
@@ -177,25 +180,36 @@ a{
    HERO
 ====================================================== */
 .hero{
-  padding: 80px 0 50px;
+  padding: 80px 0 60px;
 }
 
 .heroGrid{
   display:grid;
   grid-template-columns: 1.1fr .9fr;
   gap:28px;
+  align-items: stretch;
+}
+
+.heroLeft{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
+.heroPhotoSlot{
+  margin-top:auto;
 }
 
 .badge{
   display:inline-flex;
-  align-items:center;
   gap:10px;
-  padding:10px 12px;
+  align-items:center;
+  padding:10px 14px;
   border-radius:999px;
   border:1px solid var(--border);
   background: rgba(255,255,255,.05);
-  color: var(--muted);
   font-size:13px;
+  color: var(--muted);
 }
 
 .dot{
@@ -208,8 +222,9 @@ a{
 .h1{
   font-size: clamp(36px, 4.5vw, 56px);
   font-weight:900;
+  letter-spacing:-0.5px;
   line-height:1.05;
-  margin:16px 0 12px;
+  margin:18px 0 12px;
 }
 
 .accent{
@@ -236,10 +251,6 @@ a{
 }
 
 .btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
   padding:12px 16px;
   border-radius:16px;
   border:1px solid var(--border);
@@ -247,120 +258,45 @@ a{
   font-weight:800;
   font-size:14px;
   transition:.22s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
 }
-
 .btn:hover{
   transform: translateY(-1px);
   background: rgba(255,255,255,.1);
 }
 
 .primary{
-  background: linear-gradient(135deg, rgba(255,178,74,.2), rgba(255,107,122,.15));
+  background: linear-gradient(135deg, rgba(255,178,74,.22), rgba(255,107,122,.18));
 }
-
 .secondary{
   background: rgba(255,255,255,.04);
 }
-
 .tertiary{
   background: rgba(127,211,255,.08);
 }
-
-.full{
-  width:100%;
-}
+.full{ width:100%; }
 
 /* ======================================================
-   CARDS
+   CARDS / FEATURES
 ====================================================== */
-.card{
-  border-radius: var(--radius);
-  border:1px solid var(--border);
-  background: rgba(18,14,24,.6);
-  backdrop-filter: blur(18px);
-  box-shadow: var(--shadow);
-}
-
-.cardBody{
-  padding:18px;
-}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-}
-
-.label{
-  font-size:13px;
-  color: var(--muted2);
-}
-
-.value{
-  font-weight:800;
-}
-
-/* ======================================================
-   SECTIONS
-====================================================== */
-.section{
-  padding: 70px 0;
-}
-
-.sectionHead{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:20px;
-  margin-bottom:18px;
-}
-
-.sectionHead h2{
-  margin:0;
-  font-size:32px;
-  font-weight:900;
-}
-
-.sectionHead p{
-  margin:0;
-  color: var(--muted);
-  max-width:55ch;
-}
-
-/* ======================================================
-   GRIDS
-====================================================== */
-.grid3{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:16px;
-}
-
-.split{
-  display:grid;
-  grid-template-columns: 1.05fr .95fr;
-  gap:22px;
-}
-
-@media (max-width:980px){
-  .heroGrid,
-  .grid3,
-  .split{
-    grid-template-columns:1fr;
-  }
-}
-
-/* ======================================================
-   FEATURES
-====================================================== */
+.card,
 .feature{
   border-radius: var(--radius);
   border:1px solid var(--border);
   background: var(--card);
-  padding:18px;
-  transition:.22s ease;
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
 }
 
+.cardBody{ padding:18px; }
+
+.feature{
+  padding:18px;
+  transition:.25s ease;
+}
 .feature:hover{
   transform: translateY(-2px);
 }
@@ -378,7 +314,46 @@ a{
 }
 
 /* ======================================================
-   PHOTO FRAMES (Cafe Editorial Style)
+   SECTIONS / GRIDS
+====================================================== */
+.section{
+  padding: 80px 0;
+}
+
+.sectionHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  margin-bottom:22px;
+}
+
+.sectionHead h2{
+  margin:0;
+  font-size:32px;
+  font-weight:900;
+}
+
+.sectionHead p{
+  margin:0;
+  color: var(--muted);
+  max-width:55ch;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:16px;
+}
+
+.split{
+  display:grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap:22px;
+}
+
+/* ======================================================
+   PHOTO FRAMES (Editorial Cafe Look)
 ====================================================== */
 .photoFrame{
   position:relative;
@@ -387,17 +362,14 @@ a{
   border:1px solid var(--border);
   box-shadow: 0 18px 70px rgba(0,0,0,.35);
 }
-
 .photoImg{
   object-fit:cover;
   transform: scale(1.02);
   transition: transform .6s ease;
 }
-
 .photoFrame:hover .photoImg{
   transform: scale(1.06);
 }
-
 .photoOverlay{
   position:absolute;
   inset:0;
@@ -409,7 +381,25 @@ a{
 }
 
 /* ======================================================
-   REVEAL ON SCROLL
+   POPULAR CHIPS
+====================================================== */
+.chips{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+.chip{
+  font-size:12px;
+  color: var(--muted);
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  padding:8px 10px;
+  border-radius:999px;
+}
+
+/* ======================================================
+   REVEAL ON SCROLL (UP + DOWN)
 ====================================================== */
 .reveal{
   opacity:0;
@@ -417,7 +407,6 @@ a{
   filter: blur(6px);
   transition: opacity .7s ease, transform .7s ease, filter .7s ease;
 }
-
 .reveal.isVisible{
   opacity:1;
   transform:none;
@@ -439,8 +428,8 @@ a{
 ====================================================== */
 .footer{
   border-top:1px solid rgba(255,255,255,.08);
-  padding:30px 0 40px;
-  background: rgba(0,0,0,.15);
+  padding:34px 0 40px;
+  background: rgba(0,0,0,.18);
 }
 
 .footerInner{
@@ -454,4 +443,15 @@ a{
 .small{
   font-size:12px;
   color: var(--muted2);
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media (max-width:980px){
+  .heroGrid,
+  .grid3,
+  .split{
+    grid-template-columns:1fr;
+  }
 }

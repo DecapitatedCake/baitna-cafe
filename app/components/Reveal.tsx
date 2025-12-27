@@ -20,12 +20,13 @@ export default function Reveal({
 
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
+        // toggles on enter/leave (works when scrolling up & down)
+        setVisible(entry.isIntersecting);
       },
-      { threshold: 0.12 }
+      {
+        threshold: 0.18,
+        rootMargin: "0px 0px -10% 0px",
+      }
     );
 
     obs.observe(el);

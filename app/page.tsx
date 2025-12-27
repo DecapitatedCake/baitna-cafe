@@ -15,16 +15,15 @@ const CAFE = {
 export default function Home() {
   return (
     <>
-      {/* Ambient background */}
+      {/* Ambient blobs (kept lightweight, background gradient is handled by body::before in globals.css) */}
       <div className="bg">
         <div className="blob blob1" />
         <div className="blob blob2" />
-        <div className="grain" />
       </div>
 
       {/* Navbar */}
       <header className="nav">
-        <div className="navInner">
+        <div className="navInner container">
           <Link className="brand" href="/">
             <Image
               src="/logo.png"
@@ -44,9 +43,15 @@ export default function Home() {
             <a href="#about">About</a>
             <a href="#explore">Explore</a>
             <a href="#visit">Visit</a>
-            <Link className="pill" href="/menu">Menu</Link>
-            <Link className="pill" href="/merch">Merch</Link>
-            <Link className="pill" href="/login">Login</Link>
+            <Link className="pill" href="/menu">
+              Menu
+            </Link>
+            <Link className="pill" href="/merch">
+              Merch
+            </Link>
+            <Link className="pill" href="/login">
+              Login
+            </Link>
           </nav>
         </div>
       </header>
@@ -56,7 +61,7 @@ export default function Home() {
         <section className="hero">
           <div className="container heroGrid">
             <Reveal>
-              <div>
+              <div className="heroLeft">
                 <div className="badge">
                   <span className="dot" />
                   Famous rooftop café in Sharjah
@@ -68,30 +73,41 @@ export default function Home() {
                 </h1>
 
                 <p className="subhead">
-                  Chill, creamy, sunrise vibes. Enjoy specialty coffee, cozy seating, and a calm atmosphere you’ll want to return to.
+                  Chill, creamy, sunrise vibes. Enjoy specialty coffee, cozy seating, and a calm
+                  atmosphere you’ll want to return to.
                 </p>
 
                 <div className="ctaRow">
-                  <Link className="btn primary" href="/menu">View Menu →</Link>
-                  <a className="btn secondary" href="#visit">Find Us</a>
-                  <Link className="btn tertiary" href="/merch">Shop Merch</Link>
+                  <Link className="btn primary" href="/menu">
+                    View Menu →
+                  </Link>
+                  <a className="btn secondary" href="#visit">
+                    Find Us
+                  </a>
+                  <Link className="btn tertiary" href="/merch">
+                    Shop Merch
+                  </Link>
                 </div>
 
-                {/* Hero photo slot */}
-                <div style={{ marginTop: 18 }}>
-                  <PhotoFrame src="/gallery/hero.jpg" alt="Baitna rooftop vibe" height={260} priority />
+                {/* Hero photo slot (replace later with real pro photo: /public/gallery/hero.jpg) */}
+                <div className="heroPhotoSlot" style={{ marginTop: 18 }}>
+                  <PhotoFrame
+                    src="/gallery/hero.jpg"
+                    alt="Baitna rooftop vibe"
+                    height={270}
+                    priority
+                  />
                 </div>
               </div>
             </Reveal>
 
-            <Reveal delayMs={120}>
-              {/* Client Component with onClick */}
+            <Reveal delayMs={140}>
               <HomeClient cafe={CAFE} />
             </Reveal>
           </div>
         </section>
 
-        {/* ABOUT (split: text + photo) */}
+        {/* ABOUT */}
         <section className="section" id="about">
           <div className="container">
             <div className="sectionHead">
@@ -101,35 +117,45 @@ export default function Home() {
 
             <div className="split">
               <Reveal>
-                <div className="card" style={{ padding: 18 }}>
-                  <h3 style={{ margin: 0, fontWeight: 900, fontSize: 22 }}>Warm, relaxed, and local</h3>
-                  <p style={{ color: "rgba(255,255,255,.72)", lineHeight: 1.8, marginTop: 10 }}>
-                    Baitna Café is built around comfort — a place to unwind, catch up, and enjoy Sharjah evenings from above.
-                  </p>
+                <div className="card">
+                  <div className="cardBody">
+                    <h3 style={{ margin: 0, fontWeight: 900, fontSize: 22 }}>
+                      Warm, relaxed, and local
+                    </h3>
+                    <p style={{ color: "rgba(255,255,255,.72)", lineHeight: 1.8, marginTop: 10 }}>
+                      Baitna Café is built around comfort — a place to unwind, catch up, and enjoy
+                      Sharjah evenings from above.
+                    </p>
 
-                  <div style={{ display: "grid", gap: 10, marginTop: 12 }}>
-                    <div className="feature" style={{ margin: 0 }}>
-                      <div className="icon">🌤️</div>
-                      <h3 style={{ margin: 0 }}>Sunset vibe</h3>
-                      <p style={{ margin: 0 }}>Golden-hour atmosphere with cozy rooftop seating.</p>
-                    </div>
-                    <div className="feature" style={{ margin: 0 }}>
-                      <div className="icon">☕</div>
-                      <h3 style={{ margin: 0 }}>Creamy classics</h3>
-                      <p style={{ margin: 0 }}>Specialty drinks and favorites that feel smooth and balanced.</p>
+                    <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
+                      <div className="feature" style={{ margin: 0, boxShadow: "none" as any }}>
+                        <div className="icon">🌤️</div>
+                        <h3 style={{ margin: "0 0 6px", fontSize: 18 }}>Sunset vibe</h3>
+                        <p style={{ margin: 0, color: "rgba(255,255,255,.70)", lineHeight: 1.7 }}>
+                          Golden-hour atmosphere with cozy rooftop seating.
+                        </p>
+                      </div>
+
+                      <div className="feature" style={{ margin: 0, boxShadow: "none" as any }}>
+                        <div className="icon">☕</div>
+                        <h3 style={{ margin: "0 0 6px", fontSize: 18 }}>Creamy classics</h3>
+                        <p style={{ margin: 0, color: "rgba(255,255,255,.70)", lineHeight: 1.7 }}>
+                          Specialty drinks and favorites that feel smooth and balanced.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </Reveal>
 
-              <Reveal delayMs={140}>
+              <Reveal delayMs={160}>
                 <PhotoFrame src="/gallery/about.jpg" alt="Baitna cafe ambience" height={420} />
               </Reveal>
             </div>
           </div>
         </section>
 
-        {/* EXPLORE (spread images) */}
+        {/* EXPLORE */}
         <section className="section" id="explore">
           <div className="container">
             <div className="sectionHead">
@@ -141,30 +167,36 @@ export default function Home() {
               <Reveal>
                 <div className="feature">
                   <div className="icon">☕</div>
-                  <h3>Signature drinks</h3>
-                  <p>From creamy iced favorites to specialty picks — balanced and smooth.</p>
+                  <h3 style={{ marginTop: 0 }}>Signature drinks</h3>
+                  <p style={{ color: "rgba(255,255,255,.70)", lineHeight: 1.7 }}>
+                    From creamy iced favorites to specialty picks — balanced and smooth.
+                  </p>
                   <div style={{ marginTop: 12 }}>
                     <PhotoFrame src="/gallery/coffee.jpg" alt="Coffee" height={180} />
                   </div>
                 </div>
               </Reveal>
 
-              <Reveal delayMs={120}>
+              <Reveal delayMs={140}>
                 <div className="feature">
                   <div className="icon">🍰</div>
-                  <h3>Desserts & bites</h3>
-                  <p>Something sweet for the rooftop — light, cozy, and shareable.</p>
+                  <h3 style={{ marginTop: 0 }}>Desserts & bites</h3>
+                  <p style={{ color: "rgba(255,255,255,.70)", lineHeight: 1.7 }}>
+                    Something sweet for the rooftop — light, cozy, and shareable.
+                  </p>
                   <div style={{ marginTop: 12 }}>
                     <PhotoFrame src="/gallery/dessert.jpg" alt="Dessert" height={180} />
                   </div>
                 </div>
               </Reveal>
 
-              <Reveal delayMs={200}>
+              <Reveal delayMs={220}>
                 <div className="feature">
                   <div className="icon">🌙</div>
-                  <h3>Rooftop nights</h3>
-                  <p>Relaxed seating, calm atmosphere, and a clean modern vibe.</p>
+                  <h3 style={{ marginTop: 0 }}>Rooftop nights</h3>
+                  <p style={{ color: "rgba(255,255,255,.70)", lineHeight: 1.7 }}>
+                    Relaxed seating, calm atmosphere, and a clean modern vibe.
+                  </p>
                   <div style={{ marginTop: 12 }}>
                     <PhotoFrame src="/gallery/rooftop.jpg" alt="Rooftop" height={180} />
                   </div>
@@ -174,7 +206,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* MERCH TEASER (image + CTA, makes merch feel real) */}
+        {/* MERCH TEASER */}
         <section className="section">
           <div className="container">
             <div className="split">
@@ -182,20 +214,29 @@ export default function Home() {
                 <PhotoFrame src="/gallery/merch.jpg" alt="Baitna merch" height={420} />
               </Reveal>
 
-              <Reveal delayMs={140}>
-                <div className="card" style={{ padding: 18 }}>
-                  <h2 style={{ margin: 0, fontWeight: 900 }}>Merch that feels like the brand</h2>
-                  <p style={{ color: "rgba(255,255,255,.72)", lineHeight: 1.8, marginTop: 10 }}>
-                    Hoodies, mugs, and accessories — built for fans who want the Baitna vibe beyond the rooftop.
-                  </p>
+              <Reveal delayMs={160}>
+                <div className="card">
+                  <div className="cardBody">
+                    <h2 style={{ margin: 0, fontWeight: 900, fontSize: 28 }}>
+                      Merch that feels like the brand
+                    </h2>
+                    <p style={{ color: "rgba(255,255,255,.72)", lineHeight: 1.8, marginTop: 10 }}>
+                      Hoodies, mugs, and accessories — built for fans who want the Baitna vibe
+                      beyond the rooftop.
+                    </p>
 
-                  <div className="ctaRow" style={{ marginTop: 14 }}>
-                    <Link className="btn primary" href="/merch">Shop Merch →</Link>
-                    <Link className="btn secondary" href="/menu">See Menu</Link>
-                  </div>
+                    <div className="ctaRow" style={{ marginTop: 14 }}>
+                      <Link className="btn primary" href="/merch">
+                        Shop Merch →
+                      </Link>
+                      <Link className="btn secondary" href="/menu">
+                        See Menu
+                      </Link>
+                    </div>
 
-                  <div className="small" style={{ marginTop: 10 }}>
-                    (Later we connect checkout with Stripe/Shopify — design stays the same.)
+                    <div className="small" style={{ marginTop: 10 }}>
+                      (Later we connect checkout with Stripe/Shopify — design stays the same.)
+                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -220,20 +261,26 @@ export default function Home() {
                   </div>
                   <div className="row">
                     <div className="label">Phone</div>
-                    <a className="value" href={`tel:${CAFE.phoneTel}`}>{CAFE.phoneDisplay}</a>
+                    <a className="value" href={`tel:${CAFE.phoneTel}`}>
+                      {CAFE.phoneDisplay}
+                    </a>
                   </div>
                   <div className="row">
                     <div className="label">Location</div>
                     <div className="value">{CAFE.address}</div>
                   </div>
 
-                  <div className="grid2">
-                    <a className="btn primary full" href={CAFE.mapsUrl} target="_blank" rel="noreferrer">
+                  <div className="ctaRow" style={{ marginTop: 14 }}>
+                    <a className="btn primary" href={CAFE.mapsUrl} target="_blank" rel="noreferrer">
                       Open in Maps ↗
                     </a>
-                    <div className="btn secondary full" style={{ opacity: 0.6 }}>
-                      Copy Address (from card above)
-                    </div>
+                    <a className="btn secondary" href={`tel:${CAFE.phoneTel}`}>
+                      Call Now
+                    </a>
+                  </div>
+
+                  <div className="small" style={{ marginTop: 10 }}>
+                    Tip: We can embed a Google Map here later once you have the exact pin.
                   </div>
                 </div>
               </div>
