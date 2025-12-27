@@ -1,291 +1,250 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const CAFE = {
+  hours: "Daily • 4:00 PM – 2:00 AM",
+  phoneDisplay: "+971 XX XXX XXXX",
+  phoneTel: "+971000000000",
+  address: "Sharjah, UAE (Rooftop)",
+  mapsUrl: "https://www.google.com/maps",
+};
+
+function computeOpenStatus(date = new Date()) {
+  const h = date.getHours();
+  const open = h >= 16 || h < 2; // 4PM -> 2AM
+  return open ? "Open now" : "Closed now";
+}
+
 export default function Home() {
+  const openStatus = computeOpenStatus();
+
   return (
-    <main className="relative min-h-screen text-white">
-      {/* Premium sunrise/cream background */}
-      <div className="baitna-bg">
-        <div className="baitna-blob" style={{ left: "-180px", top: "-220px" }} />
-        <div className="baitna-blob two" style={{ right: "-220px", top: "40px" }} />
-        <div className="baitna-noise" />
+    <>
+      {/* Ambient background */}
+      <div className="bg">
+        <div className="blob blob1" />
+        <div className="blob blob2" />
+        <div className="grain" />
       </div>
 
-      {/* Top nav */}
-      <header className="sticky top-0 z-50">
-        <div className="border-b border-white/10 bg-black/25 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-            <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-white/10 bg-white/90 p-2 shadow-sm">
-                <Image src="/logo.png" alt="Baitna Cafe" width={36} height={36} priority />
-              </div>
-
-              <div className="leading-tight">
-                <div className="flex items-center gap-2">
-                  <p className="text-sm font-semibold tracking-wide">BAITNA CAFE</p>
-                  <span className="hidden h-1 w-1 rounded-full bg-white/30 sm:inline-block" />
-                  <p className="hidden text-xs text-white/70 sm:block">Sharjah</p>
-                </div>
-                <p className="text-xs text-white/70">بيتنا كافيه</p>
-              </div>
+      {/* Navbar */}
+      <header className="nav">
+        <div className="navInner">
+          <Link className="brand" href="/">
+            <Image
+              src="/logo.png"
+              alt="Baitna Cafe Logo"
+              width={44}
+              height={44}
+              className="brandLogo"
+              priority
+            />
+            <div className="brandText">
+              <span className="brandTitle">Baitna Cafe</span>
+              <span className="brandSub">بيتنا كافيه</span>
             </div>
+          </Link>
 
-            <nav className="flex items-center gap-2">
-              <Link
-                href="/menu"
-                className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black hover:bg-white/90 active:scale-[0.99]"
-              >
-                Menu
-              </Link>
-
-              <Link
-                href="/shop"
-                className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 active:scale-[0.99]"
-              >
-                Merch
-              </Link>
-            </nav>
-          </div>
+          <nav className="links">
+            <a href="#about">About</a>
+            <a href="#explore">Explore</a>
+            <a href="#visit">Visit</a>
+            <Link className="pill" href="/menu">Menu</Link>
+            <Link className="pill" href="/merch">Merch</Link>
+            <Link className="pill" href="/login">Login</Link>
+          </nav>
         </div>
       </header>
 
-      {/* HERO */}
-      <section className="mx-auto max-w-6xl px-4 pt-12 sm:pt-16">
-        <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-6 backdrop-blur-xl sm:p-10">
-          {/* inner glow */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,230,210,0.16),transparent_60%)]" />
-          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-2xl" />
-
-          <div className="relative grid gap-10 sm:grid-cols-[1.1fr_0.9fr] sm:items-center">
-            {/* left */}
+      {/* Hero */}
+      <main>
+        <section className="hero">
+          <div className="container heroGrid">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/20 px-3 py-1 text-xs text-white/80">
-                Rooftop • Coffee • Chill
-                <span className="h-1 w-1 rounded-full bg-white/40" />
-                Pickup menu view
+              <div className="badge">
+                <span className="dot" />
+                Famous rooftop café in Sharjah
               </div>
 
-              <h1 className="mt-5 text-4xl font-semibold leading-[1.05] sm:text-6xl">
-                A rooftop pause,
-                <span className="block text-white/70">done properly.</span>
+              <h1 className="h1">
+                Your rooftop <span className="accent">coffee escape</span>
+                <br />— بيتنا، مثل بيتك
               </h1>
 
-              <p className="mt-4 max-w-xl text-base text-white/70 sm:text-lg">
-                Warm lights, creamy tones, and a calm atmosphere. Browse our cafe menu,
-                find us instantly, and shop Baitna merch with delivery.
+              <p className="subhead">
+                Chill, creamy, sunrise vibes. Enjoy specialty coffee, cozy seating, and a calm atmosphere you’ll want to return to.
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/menu"
-                  className="group rounded-2xl bg-white px-6 py-3 text-center text-sm font-semibold text-black hover:bg-white/90 active:scale-[0.99]"
-                >
-                  View Cafe Menu
-                  <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">
-                    →
-                  </span>
-                </Link>
-
-                <a
-                  href="https://maps.app.goo.gl/szJgJy3g8GCtatiz6"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-white/10 active:scale-[0.99]"
-                >
-                  Open Location
-                </a>
-
-                <a
-                  href="tel:+971565463774"
-                  className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-white/10 active:scale-[0.99]"
-                >
-                  Call
-                </a>
-              </div>
-
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                <InfoCard title="Hours" value="8AM – 2AM" sub="Fri: 8AM–12PM, 2PM–2AM" />
-                <InfoCard title="Location" value="Sharjah" sub="Tap map for directions" />
-                <InfoCard title="Merch" value="Delivery" sub="Shop online" />
+              <div className="ctaRow">
+                <Link className="btn primary" href="/menu">View Menu →</Link>
+                <a className="btn secondary" href="#visit">Find Us</a>
+                <Link className="btn tertiary" href="/merch">Shop Merch</Link>
               </div>
             </div>
 
-            {/* right “signature” panel */}
-            <div className="relative">
-              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/25 p-6">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,220,190,0.18),transparent_60%)]" />
+            <div className="card">
+              <div className="cardTop">
+                <div className="cardTitle">Today at Baitna</div>
+                <div className="tag">{openStatus}</div>
+              </div>
 
-                <div className="relative">
-                  <p className="text-xs uppercase tracking-wider text-white/60">Featured</p>
-                  <p className="mt-2 text-2xl font-semibold">Spanish Latte</p>
-                  <p className="mt-2 text-sm text-white/70">
-                    Smooth, creamy, and balanced — the kind of cup that fits the rooftop.
-                  </p>
-
-                  <div className="mt-6 grid gap-2">
-                    <MiniPill>Soft ambience</MiniPill>
-                    <MiniPill>Clean & minimal</MiniPill>
-                    <MiniPill>Sunset-friendly</MiniPill>
-                  </div>
-
-                  <div className="mt-8 flex items-center justify-between">
-                    <div>
-                      <p className="text-xs text-white/60">Today’s vibe</p>
-                      <p className="text-sm font-semibold">Warm • Calm • Premium</p>
-                    </div>
-                    <Link
-                      href="/menu"
-                      className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
-                    >
-                      Menu
-                    </Link>
-                  </div>
+              <div className="cardBody">
+                <div className="row">
+                  <div className="label">Opening hours</div>
+                  <div className="value">{CAFE.hours}</div>
                 </div>
-              </div>
 
-              {/* little floating accent */}
-              <div className="pointer-events-none absolute -bottom-6 -left-6 h-24 w-24 rounded-full bg-white/5 blur-2xl" />
-            </div>
-          </div>
-        </div>
-      </section>
+                <div className="row">
+                  <div className="label">Call</div>
+                  <a className="value" href={`tel:${CAFE.phoneTel}`}>{CAFE.phoneDisplay}</a>
+                </div>
 
-      {/* SECTION: Menu preview (view-only) */}
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="flex items-end justify-between gap-6">
-          <div>
-            <h2 className="text-xl font-semibold sm:text-2xl">Cafe menu preview</h2>
-            <p className="mt-2 text-sm text-white/60">
-              View-only for cafe items. Merch is the part you can order online.
-            </p>
-          </div>
-          <Link href="/menu" className="hidden text-sm font-semibold text-white/80 hover:text-white sm:block">
-            View full menu →
-          </Link>
-        </div>
+                <div className="hr" />
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-3">
-          <MenuCard title="Spanish Latte" desc="Creamy, smooth, rooftop classic" price="18 AED" />
-          <MenuCard title="Americano" desc="Clean, bold, minimal" price="14 AED" />
-          <MenuCard title="Cappuccino" desc="Foamy, warm, balanced" price="16 AED" />
-        </div>
+                <div style={{ fontWeight: 900, margin: "12px 0 10px" }}>Popular picks</div>
+                <div className="chips">
+                  <span className="chip">Iced Spanish Latte</span>
+                  <span className="chip">Matcha</span>
+                  <span className="chip">Croissant</span>
+                  <span className="chip">Desserts</span>
+                </div>
 
-        <div className="mt-6 sm:hidden">
-          <Link
-            href="/menu"
-            className="inline-flex rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
-          >
-            View full menu →
-          </Link>
-        </div>
-      </section>
+                <div className="hr" />
 
-      {/* SECTION: Merch teaser */}
-      <section className="mx-auto max-w-6xl px-4 pb-14">
-        <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-6 backdrop-blur-xl sm:p-10">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(255,210,165,0.14),transparent_60%)]" />
+                <div className="grid2">
+                  <a className="btn primary full" href={CAFE.mapsUrl} target="_blank" rel="noreferrer">
+                    Open in Maps ↗
+                  </a>
+                  <button
+                    className="btn secondary full"
+                    onClick={() => navigator.clipboard.writeText(CAFE.address)}
+                  >
+                    Copy Address
+                  </button>
+                </div>
 
-          <div className="relative grid gap-8 sm:grid-cols-[1.2fr_0.8fr] sm:items-center">
-            <div>
-              <p className="text-xs uppercase tracking-wider text-white/60">Merch store</p>
-              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
-                Baitna merch with delivery
-              </h3>
-              <p className="mt-3 text-sm text-white/70">
-                Limited drops, clean pieces, and a premium feel — shipped to your door.
-              </p>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/shop"
-                  className="group rounded-2xl bg-white px-6 py-3 text-center text-sm font-semibold text-black hover:bg-white/90"
-                >
-                  Shop merch
-                  <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">→</span>
-                </Link>
-                <div className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-semibold text-white/90">
-                  UAE delivery
-                  <span className="ml-2 text-white/50">•</span>
-                  <span className="ml-2 text-white/70">Easy checkout</span>
+                <div className="small" style={{ marginTop: 12 }}>
+                  Replace hours/phone/maps link with the café’s real info when you have it.
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <div className="grid gap-3">
-              <SmallStat label="Fast info access" value="Menu • Location • Hours" />
-              <SmallStat label="Clean design" value="Premium, minimal, calm" />
-              <SmallStat label="Built to scale" value="Payments + Shipping next" />
+        {/* About */}
+        <section className="section" id="about">
+          <div className="container">
+            <div className="sectionHead">
+              <h2>About Baitna</h2>
+              <p>More than coffee — it’s a rooftop mood.</p>
+            </div>
+
+            <div className="grid3">
+              <div className="feature">
+                <div className="icon">☕</div>
+                <h3>Warm, relaxed, local</h3>
+                <p>A cozy rooftop space in Sharjah built for comfort, calm conversations, and good coffee.</p>
+              </div>
+
+              <div className="feature">
+                <div className="icon">🌙</div>
+                <h3>Rooftop nights</h3>
+                <p>Perfect evening vibe with relaxed seating and a clean, cozy atmosphere.</p>
+              </div>
+
+              <div className="feature">
+                <div className="icon">🛍️</div>
+                <h3>Merch shop</h3>
+                <p>Let fans take the brand home — mugs, hoodies, and more, directly from the website.</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/10 bg-black/10 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-10 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Baitna Cafe | بيتنا كافيه</p>
+        {/* Explore */}
+        <section className="section" id="explore">
+          <div className="container">
+            <div className="sectionHead">
+              <h2>Explore</h2>
+              <p>Designed to feel like sunrise, coffee, and calm.</p>
+            </div>
 
-          <div className="flex flex-wrap gap-4">
-            <Link className="hover:text-white" href="/menu">Menu</Link>
-            <Link className="hover:text-white" href="/shop">Merch</Link>
-            <a className="hover:text-white" href="https://maps.app.goo.gl/szJgJy3g8GCtatiz6" target="_blank" rel="noreferrer">
-              Location
-            </a>
-            <a className="hover:text-white" href="tel:+971565463774">
-              Call 056 546 3774
-            </a>
+            <div className="grid3">
+              <div className="feature">
+                <div className="icon">✨</div>
+                <h3>Clean modern design</h3>
+                <p>Premium look that matches the café’s vibe and feels “expensive” on first glance.</p>
+              </div>
+              <div className="feature">
+                <div className="icon">📱</div>
+                <h3>Mobile-first</h3>
+                <p>Most customers will open it on phones — this layout is built for that.</p>
+              </div>
+              <div className="feature">
+                <div className="icon">⚡</div>
+                <h3>Fast</h3>
+                <p>Next.js on Vercel is quick, reliable, and scalable for future features.</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </footer>
-    </main>
-  );
-}
+        </section>
 
-/* ---------- components ---------- */
+        {/* Visit */}
+        <section className="section" id="visit">
+          <div className="container">
+            <div className="sectionHead">
+              <h2>Visit us</h2>
+              <p>One branch — easy to find. Add the exact address + map embed later.</p>
+            </div>
 
-function InfoCard({ title, value, sub }: { title: string; value: string; sub?: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
-      <p className="text-xs uppercase tracking-wider text-white/50">{title}</p>
-      <p className="mt-1 text-base font-semibold text-white">{value}</p>
-      {sub ? <p className="mt-1 text-xs text-white/60">{sub}</p> : null}
-    </div>
-  );
-}
+            <div className="card">
+              <div className="cardBody" style={{ paddingTop: 18 }}>
+                <div className="row">
+                  <div className="label">Hours</div>
+                  <div className="value">{CAFE.hours}</div>
+                </div>
+                <div className="row">
+                  <div className="label">Phone</div>
+                  <a className="value" href={`tel:${CAFE.phoneTel}`}>{CAFE.phoneDisplay}</a>
+                </div>
+                <div className="row">
+                  <div className="label">Location</div>
+                  <div className="value">{CAFE.address}</div>
+                </div>
 
-function MenuCard({ title, desc, price }: { title: string; desc: string; price: string }) {
-  return (
-    <div className="group rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl transition hover:bg-white/10">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-lg font-semibold">{title}</p>
-          <p className="mt-2 text-sm text-white/70">{desc}</p>
-        </div>
-        <div className="rounded-xl border border-white/10 bg-black/20 px-3 py-1 text-sm font-semibold text-white/90">
-          {price}
-        </div>
-      </div>
-      <div className="mt-5 h-[1px] w-full bg-gradient-to-r from-white/0 via-white/20 to-white/0" />
-      <p className="mt-4 text-xs text-white/60">
-        View full menu for more items →
-      </p>
-    </div>
-  );
-}
+                <div className="grid2">
+                  <a className="btn primary full" href={CAFE.mapsUrl} target="_blank" rel="noreferrer">
+                    Open in Maps ↗
+                  </a>
+                  <button
+                    className="btn secondary full"
+                    onClick={() => navigator.clipboard.writeText(CAFE.address)}
+                  >
+                    Copy Address
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-function MiniPill({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="w-fit rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">
-      {children}
-    </div>
-  );
-}
+        {/* Footer */}
+        <footer className="footer">
+          <div className="container footerInner">
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <Image src="/logo.png" alt="Baitna Cafe Logo" width={40} height={40} className="brandLogo" />
+              <div>
+                <div style={{ fontWeight: 900 }}>Baitna Cafe</div>
+                <div className="small">بيتنا كافيه • Sharjah</div>
+              </div>
+            </div>
 
-function SmallStat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-      <p className="text-xs uppercase tracking-wider text-white/50">{label}</p>
-      <p className="mt-2 text-sm font-semibold text-white/90">{value}</p>
-    </div>
+            <div className="small">
+              © {new Date().getFullYear()} Baitna Cafe. All rights reserved.
+            </div>
+          </div>
+        </footer>
+      </main>
+    </>
   );
 }
