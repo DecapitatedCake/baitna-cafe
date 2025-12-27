@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import HomeClient from "./components/HomeClient";
 
 const CAFE = {
   hours: "Daily • 4:00 PM – 2:00 AM",
@@ -9,36 +10,19 @@ const CAFE = {
   mapsUrl: "https://www.google.com/maps",
 };
 
-function computeOpenStatus(date = new Date()) {
-  const h = date.getHours();
-  const open = h >= 16 || h < 2; // 4PM -> 2AM
-  return open ? "Open now" : "Closed now";
-}
-
 export default function Home() {
-  const openStatus = computeOpenStatus();
-
   return (
     <>
-      {/* Ambient background */}
       <div className="bg">
         <div className="blob blob1" />
         <div className="blob blob2" />
         <div className="grain" />
       </div>
 
-      {/* Navbar */}
       <header className="nav">
         <div className="navInner">
           <Link className="brand" href="/">
-            <Image
-              src="/logo.png"
-              alt="Baitna Cafe Logo"
-              width={44}
-              height={44}
-              className="brandLogo"
-              priority
-            />
+            <Image src="/logo.png" alt="Baitna Cafe Logo" width={44} height={44} className="brandLogo" priority />
             <div className="brandText">
               <span className="brandTitle">Baitna Cafe</span>
               <span className="brandSub">بيتنا كافيه</span>
@@ -56,7 +40,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero */}
       <main>
         <section className="hero">
           <div className="container heroGrid">
@@ -82,56 +65,12 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="card">
-              <div className="cardTop">
-                <div className="cardTitle">Today at Baitna</div>
-                <div className="tag">{openStatus}</div>
-              </div>
-
-              <div className="cardBody">
-                <div className="row">
-                  <div className="label">Opening hours</div>
-                  <div className="value">{CAFE.hours}</div>
-                </div>
-
-                <div className="row">
-                  <div className="label">Call</div>
-                  <a className="value" href={`tel:${CAFE.phoneTel}`}>{CAFE.phoneDisplay}</a>
-                </div>
-
-                <div className="hr" />
-
-                <div style={{ fontWeight: 900, margin: "12px 0 10px" }}>Popular picks</div>
-                <div className="chips">
-                  <span className="chip">Iced Spanish Latte</span>
-                  <span className="chip">Matcha</span>
-                  <span className="chip">Croissant</span>
-                  <span className="chip">Desserts</span>
-                </div>
-
-                <div className="hr" />
-
-                <div className="grid2">
-                  <a className="btn primary full" href={CAFE.mapsUrl} target="_blank" rel="noreferrer">
-                    Open in Maps ↗
-                  </a>
-                  <button
-                    className="btn secondary full"
-                    onClick={() => navigator.clipboard.writeText(CAFE.address)}
-                  >
-                    Copy Address
-                  </button>
-                </div>
-
-                <div className="small" style={{ marginTop: 12 }}>
-                  Replace hours/phone/maps link with the café’s real info when you have it.
-                </div>
-              </div>
-            </div>
+            {/* Client Component with onClick */}
+            <HomeClient cafe={CAFE} />
           </div>
         </section>
 
-        {/* About */}
+        {/* keep your other sections as-is */}
         <section className="section" id="about">
           <div className="container">
             <div className="sectionHead">
@@ -145,13 +84,11 @@ export default function Home() {
                 <h3>Warm, relaxed, local</h3>
                 <p>A cozy rooftop space in Sharjah built for comfort, calm conversations, and good coffee.</p>
               </div>
-
               <div className="feature">
                 <div className="icon">🌙</div>
                 <h3>Rooftop nights</h3>
                 <p>Perfect evening vibe with relaxed seating and a clean, cozy atmosphere.</p>
               </div>
-
               <div className="feature">
                 <div className="icon">🛍️</div>
                 <h3>Merch shop</h3>
@@ -161,7 +98,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Explore */}
         <section className="section" id="explore">
           <div className="container">
             <div className="sectionHead">
@@ -178,7 +114,7 @@ export default function Home() {
               <div className="feature">
                 <div className="icon">📱</div>
                 <h3>Mobile-first</h3>
-                <p>Most customers will open it on phones — this layout is built for that.</p>
+                <p>Most customers open it on phones — this layout is built for that.</p>
               </div>
               <div className="feature">
                 <div className="icon">⚡</div>
@@ -189,7 +125,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Visit */}
         <section className="section" id="visit">
           <div className="container">
             <div className="sectionHead">
@@ -216,19 +151,16 @@ export default function Home() {
                   <a className="btn primary full" href={CAFE.mapsUrl} target="_blank" rel="noreferrer">
                     Open in Maps ↗
                   </a>
-                  <button
-                    className="btn secondary full"
-                    onClick={() => navigator.clipboard.writeText(CAFE.address)}
-                  >
-                    Copy Address
-                  </button>
+                  {/* no onClick here (server component) */}
+                  <div className="btn secondary full" style={{ opacity: 0.6 }}>
+                    Copy Address (from card above)
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Footer */}
         <footer className="footer">
           <div className="container footerInner">
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -238,10 +170,7 @@ export default function Home() {
                 <div className="small">بيتنا كافيه • Sharjah</div>
               </div>
             </div>
-
-            <div className="small">
-              © {new Date().getFullYear()} Baitna Cafe. All rights reserved.
-            </div>
+            <div className="small">© {new Date().getFullYear()} Baitna Cafe. All rights reserved.</div>
           </div>
         </footer>
       </main>
